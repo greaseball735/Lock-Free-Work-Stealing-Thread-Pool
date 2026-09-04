@@ -77,7 +77,7 @@ public:
             m_bottom.store(b + 1, std::memory_order_release);
         } else if constexpr (Policy == MemoryOrderingPolicy::TSO_Optimized) {
             // On x86 TSO, store-store is hardware-ordered; compiler barrier is sufficient
-            asm volatile("" ::: "memory");  
+          std::atomic_signal_fence(std::memory_order_acq_rel);                                                                         
             m_bottom.store(b + 1, std::memory_order_relaxed);
         } else {
             m_bottom.store(b + 1, std::memory_order_relaxed);
@@ -125,7 +125,7 @@ public:
             b = m_bottom.load(std::memory_order_seq_cst);
         } else if constexpr (Policy == MemoryOrderingPolicy::TSO_Optimized) {
             t = m_top.load(std::memory_order_relaxed);
-            asm volatile("" ::: "memory");  
+                std::atomic_signal_fence(std::memory_order_acq_rel);  
             b = m_bottom.load(std::memory_order_relaxed);
         } else {
             t = m_top.load(std::memory_order_relaxed);
