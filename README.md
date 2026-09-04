@@ -1,8 +1,16 @@
 # Lock-Free Work-Stealing Thread Pool
 
-A high-performance C++20 implementation of Stefan Reinalter's Job System 2.0 architecture from the Molecular Musings series with all the good things -- work-stealing Chase-Lev deques, a custom lock-free ring-buffer allocator with cache-line padding to avoid false sharing, atomic counter-based parent/child job tracking, parallel_for, continuations, explicit x86/C++11 memory ordering, and full job dependencies. Design and architecture credit to the original blog series.
-https://blog.molecular-matters.com/2015/08/24/job-system-2-0-lock-free-work-stealing-part-1-basics/     -one of many awesome blogs
-https://preshing.com/20120612/an-introduction-to-lock-free-programming/     -Jeff Preshing’s blogs, very old but still relevant and fun to read.                                   
+A high-performance C++20 implementation of Stefan Reinalter's Job System 2.0 architecture from the Molecular Musings series with all the good things -- work-stealing Chase-Lev deques, a custom lock-free ring-buffer allocator with cache-line padding to avoid false sharing, atomic counter-based parent/child job tracking, parallel_for, continuations, explicit x86/C++11 memory ordering, and full job dependencies. 
+Design and architecture credit to the original blog series.
+
+(part 1 of 5) one of many awesome blogs.<br>
+https://blog.molecular-matters.com/2015/08/24/job-system-2-0-lock-free-work-stealing-part-1-basics/ 
+
+Jeff Preshing’s blogs, very old but still relevant and fun to read.       
+https://preshing.com/20120612/an-introduction-to-lock-free-programming/                               
+
+
+<br>
 <figure>
   <img src="https://github.com/user-attachments/assets/13408a70-140b-43fb-b45e-6a088a2d0585" alt="Mandelbrot visualization">
   <figcaption>A sample Mandelbrot visualization rendered using the thread pool</figcaption>
