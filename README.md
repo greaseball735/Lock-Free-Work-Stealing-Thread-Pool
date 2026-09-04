@@ -1,6 +1,12 @@
-# Job System 2.0: Lock-Free Work-Stealing Thread Pool
+# Lock-Free Work-Stealing Thread Pool
 
-A high-performance C++20 implementation of Stefan Reinalter's **Job System 2.0** architecture from the renowned *Molecular Musings* series.
+A high-performance C++20 implementation of Stefan Reinalter's Job System 2.0 architecture from the Molecular Musings series with all the good things -- work-stealing Chase-Lev deques, a custom lock-free ring-buffer allocator with cache-line padding to avoid false sharing, atomic counter-based parent/child job tracking, parallel_for, continuations, explicit x86/C++11 memory ordering, and full job dependencies. Design and architecture credit to the original blog series.
+https://blog.molecular-matters.com/2015/08/24/job-system-2-0-lock-free-work-stealing-part-1-basics/     -one of many awesome blogs
+https://preshing.com/20120612/an-introduction-to-lock-free-programming/     -Jeff Preshing’s blogs, very old but still relevant and fun to read.                                   
+<figure>
+  <img src="https://github.com/user-attachments/assets/13408a70-140b-43fb-b45e-6a088a2d0585" alt="Mandelbrot visualization">
+  <figcaption>A sample Mandelbrot visualization rendered using the thread pool</figcaption>
+</figure>
 
 ## Architecture Overview
 
@@ -61,7 +67,8 @@ A high-performance C++20 implementation of Stefan Reinalter's **Job System 2.0**
 │   ├── bench_parallel_for.cpp      # parallel_for with cache-size vs count splitters
 │   ├── bench_unbalanced.cpp        # Irregular workload load-balancing (Mandelbrot)
 │   ├── bench_dependencies.cpp      # Task dependency DAG pipelines (Part 5 continuations)
-│   └── bench_memory_model.cpp      # Weak vs TSO vs Relaxed memory ordering comparison
+│   |── bench_memory_model.cpp      # Weak vs TSO vs Relaxed memory ordering comparison
+|   └── generate_mandelbrot.cpp     # a fun test to generate the famous mandelbrot figures, simple version. 
 ├── tests/
 │   └── test_job_system.cpp         # Unit tests and ThreadSanitizer validation
 └── Makefile
@@ -85,3 +92,12 @@ make test
 ```bash
 make run
 ```
+
+### generate mandelbrot figure using the thread pool
+```bash
+# Usage: ./bin/generate_mandelbrot <width> <height> <max_iter> <output.ppm>                                                                 
+    ./bin/generate_mandelbrot 3840 2160 2000 4k_mandelbrot.ppm                                                                                  
+                                                                                                                                                
+    # Convert PPM to PNG with ffmpeg                                                                                                            
+    ffmpeg -y -i 4k_mandelbrot.ppm 4k_mandelbrot.png    
+```      
